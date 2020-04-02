@@ -1,0 +1,2 @@
+Админка
+@include('admin.menu')
