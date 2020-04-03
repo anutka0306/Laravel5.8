@@ -4,13 +4,19 @@
     @parent About Us
 @endsection
 
-@section('menu')
-    @include('main_menu')
-@endsection
-
 @section('content')
-    <div class="content">
-        <h1>ABOUT US!</h1>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header"></div>
+
+                    <div class="card-body">
+                        <p>About us</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 

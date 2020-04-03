@@ -15,9 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/','HomeController@index')->name('Home');
 
-Route::get('/about', function () {
-    return view('about');
-});
+Route::get('/about', 'HomeController@about')->name('About');
 
 Route::group([
     'prefix'=>'news',
@@ -44,3 +42,7 @@ Route::group([
 
 
 
+
+Auth::routes();
+
+//Route::get('/home', 'HomeController@index')->name('home');
