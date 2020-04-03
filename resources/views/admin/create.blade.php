@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('title')
-    @parent Админка
+    @parent Создание новости
 @endsection
 
 
@@ -13,10 +13,11 @@
                 <div class="card">
                     <div class="card-header"></div>
                     <div class="card-body">
-                        <p>Админка</p>
+                        <p>Создание новости</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 @endsection
+

@@ -38,6 +38,7 @@ Route::group([
     'as'=>'admin.'
 ], function (){
     Route::get('/','IndexController@index')->name('index');
+    Route::get('/create','IndexController@create')->name('create');
 });
 
 
