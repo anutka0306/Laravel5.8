@@ -15,7 +15,15 @@ class IndexController extends Controller
     }
     public function create(Request $request){
         if($request->isMethod('post')){
-            return redirect()->route('admin.create');
+            $newsData = \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+            $newsData = json_decode($newsData, true);
+           $inputData = $request->except(['_token']);
+            $inputData['id'] = 6;
+            array_push($newsData, $inputData);
+            \Illuminate\Support\Facades\File::put(base_path() .'/storage/data/news.json', json_encode($newsData));
+            return $inputData;
+           //dd($request->except(['_token']));
+            //return redirect()->route('admin.create');
         }
         return view('admin.create',
         [
