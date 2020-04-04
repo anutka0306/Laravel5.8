@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Categories;
+use App\Categories as Categories;
+use App\Http\Controllers\NewsController;
+use App\News as News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -13,7 +15,6 @@ class IndexController extends Controller
     }
     public function create(Request $request){
         if($request->isMethod('post')){
-            $request->flash();
             return redirect()->route('admin.create');
         }
         return view('admin.create',

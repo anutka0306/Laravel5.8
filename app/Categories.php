@@ -6,20 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Categories extends Model
 {
-    private static $categories = [
-        0 => [
-            'id'=> 1,
-            'name' => 'Спорт',
-            'slug'=>'sport'
-        ],
-        1 => [
-            'id'=> 2,
-            'name' => 'Экономика',
-            'slug'=>'economic'
-        ],
-    ];
+
     public static function getCategories(){
-        return static::$categories;
+        $categories =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/categories.json');
+        $categories = json_decode($categories, true);
+        return $categories;
     }
     public static  function changeKeys($arr, $keyProp){
         foreach ($arr as $key=>$value){
@@ -28,13 +19,17 @@ class Categories extends Model
         return $result;
     }
     public static function getNewsCat($cat){
-        $catResult = self::changeKeys(static::$categories, 'id');
+        $categories =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/categories.json');
+        $categories = json_decode($categories, true);
+        $catResult = self::changeKeys($categories, 'id');
         return $catResult[$cat];
     }
 
     public static function getCategoryIdBySlug($slug){
         $id = null;
-        foreach(static::$categories as $category){
+        $categories =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/categories.json');
+        $categories = json_decode($categories, true);
+        foreach($categories as $category){
             if($category['slug']==$slug){
                 $id = $category['id'];
             }
@@ -44,7 +39,9 @@ class Categories extends Model
 
     public static function getCategoryNameBySlug($slug){
         $name = null;
-        foreach (static::$categories as $category){
+        $categories =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/categories.json');
+        $categories = json_decode($categories, true);
+        foreach ($categories as $category){
             if($category['slug']==$slug){
                 $name = $category['name'];
             }
@@ -54,7 +51,9 @@ class Categories extends Model
 
     public static function getCategoryNameById($id){
         $name = null;
-        $categoriesArr = self::changeKeys(static::$categories, 'id');
+        $categories =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/categories.json');
+        $categories = json_decode($categories, true);
+        $categoriesArr = self::changeKeys($categories, 'id');
         $name = $categoriesArr[$id]['name'];
        return $name;
     }

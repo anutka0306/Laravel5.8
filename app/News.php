@@ -2,61 +2,36 @@
 
 namespace App;
 
+use Faker\Provider\File;
 use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
-    private static $news = [
-       0 => [
-           'id'=> 1,
-           'title'=> 'News title 1',
-           'text' => 'News text 1',
-           'cat_id' => '1'
-       ],
-       1 => [
-           'id'=> 2,
-           'title'=> 'News title 2',
-           'text' => 'News text 2',
-           'cat_id' => '2'
-       ],
-        2 => [
-            'id'=> 3,
-            'title'=> 'News title 3',
-            'text' => 'News text 3',
-            'cat_id' => '2'
-        ],
-        3 => [
-            'id'=> 4,
-            'title'=> 'News title 4',
-            'text' => 'News text 4',
-            'cat_id' => '1'
-        ],
-        4 => [
-            'id'=> 5,
-            'title'=> 'News title 5',
-            'text' => 'News text 5',
-            'cat_id' => '1'
-        ],
-    ];
 
     public static function getNews(){
-        return static::$news;
+       $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+       $news = json_decode($news, true);
+       return $news;
     }
 
 
     public static function getNewsByCategorySlug($slug){
         $id = Categories::getCategoryIdBySlug($slug);
-        $news = [];
-        foreach (static::$news as $item){
+        $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+        $news = json_decode($news, true);
+        $catNews = [];
+        foreach ($news as $item){
            if($item['cat_id'] == $id){
-               $news[] = $item;
+               $catNews[] = $item;
            }
         }
-        return $news;
+        return $catNews;
     }
 
     public static function getCategoryNameByNewId($id){
-        $newsResult = self::changeKeys(static::$news, 'id');
+        $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+        $news = json_decode($news, true);
+        $newsResult = self::changeKeys($news, 'id');
         $new =  $newsResult[$id];
         $cat_id = $new['cat_id'];
         return Categories::getCategoryNameById($cat_id);
@@ -70,8 +45,10 @@ class News extends Model
     }
 
     public static function getNewsId($id){
-    $newsResult = self::changeKeys(static::$news, 'id');
-    return $newsResult[$id];
+        $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+        $news = json_decode($news, true);
+        $newsResult = self::changeKeys($news, 'id');
+        return $newsResult[$id];
     }
 
 }
