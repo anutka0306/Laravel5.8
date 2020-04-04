@@ -41,13 +41,6 @@
                                 <textarea name="text" class="form-control" rows="5" id="newsText">{{ old('text') }}</textarea>
                             </div>
 
-                            <div class="form-check">
-                                <input @if(old('isPrivate')==1) checked @endif name="isPrivate" class="form-check-input" type="checkbox" value="1"
-                                       id="newsPrivate">
-                                <label class="form-check-label" for="newsPrivate">
-                                    Новость private?
-                                </label>
-                            </div>
 
                             <div class="form-group">
                                 <input type="submit" class="btn btn-outline-primary" value="Добавить новость"

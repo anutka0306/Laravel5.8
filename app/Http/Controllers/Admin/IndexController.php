@@ -23,9 +23,7 @@ class IndexController extends Controller
             $inputData['id'] = $next_id;
             array_push($newsData, $inputData);
             \Illuminate\Support\Facades\File::put(base_path() .'/storage/data/news.json', json_encode($newsData, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
-            return $inputData;
-           //dd($request->except(['_token']));
-            //return redirect()->route('admin.create');
+            return redirect()->route('news.index');
         }
         return view('admin.create',
         [
