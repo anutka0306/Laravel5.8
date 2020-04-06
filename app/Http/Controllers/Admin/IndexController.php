@@ -8,6 +8,7 @@ use App\News as News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 class IndexController extends Controller
 {
     public  function index(){
@@ -23,7 +24,7 @@ class IndexController extends Controller
             $inputData['id'] = $next_id;
             array_push($newsData, $inputData);
             \Illuminate\Support\Facades\File::put(base_path() .'/storage/data/news.json', json_encode($newsData, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));
-            return redirect()->route('news.index');
+            return redirect()->route('admin.index')->with('success','Новость успешно добавлена');
         }
         return view('admin.create',
         [

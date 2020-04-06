@@ -2,14 +2,14 @@
 
 namespace App;
 
-use Faker\Provider\File;
+use \Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 
 class News extends Model
 {
 
     public static function getNews(){
-       $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+       $news =  File::get(base_path() .'/storage/data/news.json');
        $news = json_decode($news, true);
        return $news;
     }
@@ -17,7 +17,7 @@ class News extends Model
 
     public static function getNewsByCategorySlug($slug){
         $id = Categories::getCategoryIdBySlug($slug);
-        $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+        $news =  File::get(base_path() .'/storage/data/news.json');
         $news = json_decode($news, true);
         $catNews = [];
         foreach ($news as $item){
@@ -29,7 +29,7 @@ class News extends Model
     }
 
     public static function getCategoryNameByNewId($id){
-        $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+        $news =  File::get(base_path() .'/storage/data/news.json');
         $news = json_decode($news, true);
         $newsResult = self::changeKeys($news, 'id');
         $new =  $newsResult[$id];
@@ -45,7 +45,7 @@ class News extends Model
     }
 
     public static function getNewsId($id){
-        $news =  \Illuminate\Support\Facades\File::get(base_path() .'/storage/data/news.json');
+        $news =  File::get(base_path() .'/storage/data/news.json');
         $news = json_decode($news, true);
         $newsResult = self::changeKeys($news, 'id');
         return $newsResult[$id];
