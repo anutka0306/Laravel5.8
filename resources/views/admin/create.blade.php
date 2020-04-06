@@ -13,7 +13,7 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form method="POST" action="{{ route('admin.create') }}">
+                        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.create') }}">
                             @csrf
 
                             <div class="form-group">
@@ -39,6 +39,11 @@
                             <div class="form-group">
                                 <label for="newsText">Текст новости</label>
                                 <textarea name="text" class="form-control" rows="5" id="newsText">{{ old('text') }}</textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="image">Картинка новости</label><br>
+                                <input type="file" name="image">
                             </div>
 
 

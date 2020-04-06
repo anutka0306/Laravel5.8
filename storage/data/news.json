@@ -33,5 +33,12 @@
         "text": "News text 5",
         "cat_id": "1",
         "image": null
+    },
+    {
+        "title": "Test image",
+        "cat_id": "1",
+        "text": "Test image text",
+        "image": "\/storage\/images\/xUdICwvrxHguegweuwUglrsDiItKekJgpD6ocoSG.jpeg",
+        "id": 6
     }
 ]
