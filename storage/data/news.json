@@ -40,5 +40,12 @@
         "text": "Test image text",
         "image": "\/storage\/images\/xUdICwvrxHguegweuwUglrsDiItKekJgpD6ocoSG.jpeg",
         "id": 6
+    },
+    {
+        "title": "Очень крутая новость",
+        "cat_id": "1",
+        "text": "текст очень крутой новости",
+        "image": "\/storage\/images\/OW3L07FzzNjEP1vjX4JqgIgqvNGBbOfZ8SjbONbn.jpeg",
+        "id": 7
     }
 ]
