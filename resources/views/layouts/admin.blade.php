@@ -59,6 +59,12 @@
             </div>
         </div>
     </nav>
+
+    @if(session('success'))
+        <div class="alert alert-primary" role="alert">
+           {{ session('success') }}
+        </div>
+    @endif
     <div class="py-4">
         @yield('content')
     </div>

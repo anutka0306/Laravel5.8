@@ -3,54 +3,49 @@
         "id": 1,
         "title": "News title 1",
         "text": "News text 1",
-        "cat_id": "1"
+        "cat_id": "1",
+        "image": null
     },
     {
         "id": 2,
         "title": "News title 2",
         "text": "News text 2",
-        "cat_id": "2"
+        "cat_id": "2",
+        "image": null
     },
     {
         "id": 3,
         "title": "News title 3",
         "text": "News text 3",
-        "cat_id": "2"
+        "cat_id": "2",
+        "image": null
     },
     {
         "id": 4,
         "title": "News title 4",
         "text": "News text 4",
-        "cat_id": "1"
+        "cat_id": "1",
+        "image": null
     },
     {
         "id": 5,
         "title": "News title 5",
         "text": "News text 5",
-        "cat_id": "1"
+        "cat_id": "1",
+        "image": null
     },
     {
-        "title": "1233343",
+        "title": "Test image",
         "cat_id": "1",
-        "text": "dsjkajalk",
+        "text": "Test image text",
+        "image": "\/storage\/images\/xUdICwvrxHguegweuwUglrsDiItKekJgpD6ocoSG.jpeg",
         "id": 6
     },
     {
-        "title": "Новость номер 7",
-        "cat_id": "2",
-        "text": "Супер новость номер 7",
-        "id": 7
-    },
-    {
-        "title": "Новость номер 8",
+        "title": "Очень крутая новость",
         "cat_id": "1",
-        "text": "Текст новости номер 8",
-        "id": 8
-    },
-    {
-        "title": "Новость номе 9",
-        "cat_id": "2",
-        "text": "Новость новость",
-        "id": 9
+        "text": "текст очень крутой новости",
+        "image": "\/storage\/images\/OW3L07FzzNjEP1vjX4JqgIgqvNGBbOfZ8SjbONbn.jpeg",
+        "id": 7
     }
 ]
