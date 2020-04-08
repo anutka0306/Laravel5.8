@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
 use \Illuminate\Support\Facades\File;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,32 +10,19 @@ class News extends Model
 {
 
     public static function getNews(){
-       $news =  File::get(base_path() .'/storage/data/news.json');
-       $news = json_decode($news, true);
-       return $news;
+       return DB::select('SELECT * FROM news');
     }
 
 
     public static function getNewsByCategorySlug($slug){
         $id = Categories::getCategoryIdBySlug($slug);
-        $news =  File::get(base_path() .'/storage/data/news.json');
-        $news = json_decode($news, true);
-        $catNews = [];
-        foreach ($news as $item){
-           if($item['cat_id'] == $id){
-               $catNews[] = $item;
-           }
-        }
-        return $catNews;
+        return DB::select("SELECT * FROM news");
     }
 
     public static function getCategoryNameByNewId($id){
-        $news =  File::get(base_path() .'/storage/data/news.json');
-        $news = json_decode($news, true);
-        $newsResult = self::changeKeys($news, 'id');
-        $new =  $newsResult[$id];
-        $cat_id = $new['cat_id'];
-        return Categories::getCategoryNameById($cat_id);
+        $new = DB::select("SELECT * FROM news WHERE id=:id",['id'=>$id]);
+        //$cat_id = $new[0]->cat_id;
+        //return Categories::getCategoryNameById($cat_id);
     }
 
     public static  function changeKeys($arr, $keyProp){
@@ -45,10 +33,8 @@ class News extends Model
     }
 
     public static function getNewsId($id){
-        $news =  File::get(base_path() .'/storage/data/news.json');
-        $news = json_decode($news, true);
-        $newsResult = self::changeKeys($news, 'id');
-        return $newsResult[$id];
+        $new = DB::select("SELECT * FROM news WHERE id=:id",['id'=>$id]);
+        return $new[0];
     }
 
 }

@@ -9,3 +9,8 @@
     background-size: cover;
     float:left;
 }
+.new-item__description{
+    height: 50px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

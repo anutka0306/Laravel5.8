@@ -16,12 +16,12 @@
                         <div class="row">
                             @foreach ($news as $item)
                                 <div class="col-md-4">
-                                    <a href="{{ route('news.show',[$item['id']]) }}"><h4>{{ $item['title'] }}</h4></a>
-                                    <a href="{{ route('news.show',[$item['id']]) }}">
-                                        <div class="catalog-item__image" style="background-image:url({{ $item['image']??asset('storage/default.jpg') }})" alt="New Image"></div>
+                                    <a href="{{ route('news.show',$item->id) }}"><h4>{{ $item->title }}</h4></a>
+                                    <a href="{{ route('news.show',$item->id) }}">
+                                        <div class="catalog-item__image" style="background-image:url({{ $item->image??asset('storage/default.jpg') }})" alt="New Image"></div>
                                     </a>
                                     <div class="new-item__description">
-                                        {{ $item['text'] }}
+                                        {{ $item->text }}
                                     </div>
                                 </div>
                             @endforeach
