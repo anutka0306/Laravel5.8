@@ -31,9 +31,14 @@ class IndexController extends Controller
                  $url= Storage::url($path);
              }
             $inputData['image'] = $url;
-            /* array_push($newsData, $inputData);
-             \Illuminate\Support\Facades\File::put(base_path() .'/storage/data/news.json', json_encode($newsData, JSON_UNESCAPED_UNICODE|JSON_PRETTY_PRINT));*/
-            DB::insert("INSERT into news SET title=:title, text=:text, image=:image",['title'=>$inputData['title'], 'text'=>$inputData['text'], 'image'=>$inputData['image']]);
+            DB::table('news')->insert(
+                [
+                    'title'=>$inputData['title'],
+                    'text'=>$inputData['text'],
+                    'image'=>$inputData['image'],
+
+                ]
+            );
              return redirect()->route('admin.index')->with('success','Новость успешно добавлена');
          }
          return view('admin.create',

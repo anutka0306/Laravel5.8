@@ -11,7 +11,7 @@
                 <div class="card">
                     <div class="card-header"></div>
                     <div class="card-body">
-                        <h3>Категория </h3>
+                        <h3>Категория {{ $category_name }}</h3>
                         <div class="row">
                             @foreach ($news as $item)
                                 <div class="col-md-4">
