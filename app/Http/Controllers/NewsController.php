@@ -10,13 +10,18 @@ use Illuminate\Support\Facades\DB;
 class NewsController extends Controller
 {
     public function index(){
-        return view('news.news')->with('news', DB::table('news')->get());
+        return view('news.news')->with('news', News::all());
     }
     public function show($id){
-        return view('news.new')->with([
-        'news'=> DB::table('news')->find($id),
-         'category_name'=>News::getCategoryNameByNewId($id),
+        $news = News::query()->find($id);
+        if(!empty($news)) {
+            return view('news.new')->with([
+                'news' => $news,
+                'category_name' => 'News::getCategoryNameByNewId($id)',
             ]);
+        }else{
+            return redirect()->route('news.index');
+        }
     }
 
 }
