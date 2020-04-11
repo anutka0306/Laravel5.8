@@ -39,6 +39,9 @@ Route::group([
 ], function (){
     Route::get('/','NewsController@index')->name('index');
     Route::match(['get','post'],'/create','NewsController@create')->name('create');
+    Route::get('/edit{news}','NewsController@edit')->name('edit');
+    Route::post('/update{news}','NewsController@update')->name('update');
+    Route::get('/destroy{news}','NewsController@destroy')->name('destroy');
 });
 
 

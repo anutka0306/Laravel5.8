@@ -17,11 +17,16 @@
                         <div class="row">
                             @foreach ($news as $item)
                                 <div class="col-md-6">
-                                    <a href="{{ route('news.show',$item) }}"><h4>{{ $item->title }}</h4></a>
+                                    <h4>{{ $item->title }}</h4>
+                                  <a href="{{ route('admin.edit', $item) }}">  <button type="button" class="btn btn-success">Edit</button></a>
+                                 <a href="{{ route('admin.destroy', $item) }}">   <button type="button" class="btn btn-danger">Delete</button></a>
+                                    <hr/>
                                 </div>
                             @endforeach
                         </div>
+                        <div>
                         {{ $news->links()}}
+                        </div>
                     </div>
                 </div>
             </div>

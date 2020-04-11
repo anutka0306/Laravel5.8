@@ -17,8 +17,34 @@ class NewsController extends Controller
 
     }
 
+    public function edit(Request $request, News $news){
+        return view('admin.create',[
+            'news'=>$news,
+            'categories'=>[]
+        ]);
+    }
+
+    public function update(Request $request, News $news)
+    {
+        if ($request->isMethod('post')) {
+            $inputData = $request->except(['_token']);
+            $url = null;
+            if ($request->file('image')) {
+                $path = Storage::putFile('public/images', $request->file('image'));
+                $url = Storage::url($path);
+            }
+            $news->fill($request->all())->save();
+            return redirect()->route('admin.index')->with('success', 'Новость успешно изменена');
+        }
+    }
+
+    public function destroy(){
+
+    }
+
     public function create(Request $request)
     {
+        $news = new News();
         if ($request->isMethod('post')) {
             $inputData = $request->except(['_token']);
             $url = null;
@@ -26,20 +52,13 @@ class NewsController extends Controller
                 $path = Storage::putFile('public/images', $request->file('image'));
                 $url= Storage::url($path);
             }
-            $inputData['image'] = $url;
-            DB::table('news')->insert(
-                [
-                    'title'=>$inputData['title'],
-                    'text'=>$inputData['text'],
-                    'image'=>$inputData['image'],
-
-                ]
-            );
+            $news->fill($request->all())->save();
             return redirect()->route('admin.index')->with('success','Новость успешно добавлена');
         }
         return view('admin.create',
             [
-                'categories'=>Categories::all()
+                'categories'=>Categories::all(),
+                'news'=> $news,
             ]);
     }
 }

@@ -13,12 +13,12 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form method="POST" enctype="multipart/form-data" action="{{ route('admin.create') }}">
+                        <form method="POST" enctype="multipart/form-data" action="@if(!$news->id){{ route('admin.create') }}@else{{ route('admin.update', $news) }} @endif">
                             @csrf
 
                             <div class="form-group">
                                 <label for="newsTitle">Название новости</label>
-                                <input name="title" type="text" class="form-control" id="newsTitle" value="{{ old('title') }}">
+                                <input name="title" type="text" class="form-control" id="newsTitle" value="{{ $news->title ?? old('title') }}">
                             </div>
 
 
@@ -38,7 +38,7 @@
 
                             <div class="form-group">
                                 <label for="newsText">Текст новости</label>
-                                <textarea name="text" class="form-control" rows="5" id="newsText">{{ old('text') }}</textarea>
+                                <textarea name="text" class="form-control" rows="5" id="newsText">{{ $news->text ?? old('text') }}</textarea>
                             </div>
 
                             <div class="form-group">
@@ -48,7 +48,7 @@
 
 
                             <div class="form-group">
-                                <input type="submit" class="btn btn-outline-primary" value="Добавить новость"
+                                <input type="submit" class="btn btn-outline-primary" value="@if($news->id)Изменить @else Добавить @endif новость"
                                        id="addNews">
                             </div>
                         </form>
