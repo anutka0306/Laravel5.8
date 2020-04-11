@@ -38,8 +38,9 @@ class NewsController extends Controller
         }
     }
 
-    public function destroy(){
-
+    public function destroy(News $news){
+        $news->delete();
+        return redirect()->route('admin.index')->with('success', 'Новость успешно удалена');
     }
 
     public function create(Request $request)
