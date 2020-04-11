@@ -37,8 +37,8 @@ Route::group([
     'namespace'=>'Admin',
     'as'=>'admin.'
 ], function (){
-    Route::get('/','IndexController@index')->name('index');
-    Route::match(['get','post'],'/create','IndexController@create')->name('create');
+    Route::get('/','NewsController@index')->name('index');
+    Route::match(['get','post'],'/create','NewsController@create')->name('create');
 });
 
 

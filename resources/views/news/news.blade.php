@@ -26,6 +26,7 @@
                                 </div>
                             @endforeach
                         </div>
+                        {{ $news->links()}}
                     </div>
                 </div>
             </div>

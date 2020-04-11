@@ -13,10 +13,19 @@
                 <div class="card">
                     <div class="card-header"></div>
                     <div class="card-body">
-                        <p>Админка</p>
+                        <h1>Все новости</h1>
+                        <div class="row">
+                            @foreach ($news as $item)
+                                <div class="col-md-6">
+                                    <a href="{{ route('news.show',$item) }}"><h4>{{ $item->title }}</h4></a>
+                                </div>
+                            @endforeach
+                        </div>
+                        {{ $news->links()}}
                     </div>
                 </div>
             </div>
         </div>
     </div>
+
 @endsection
