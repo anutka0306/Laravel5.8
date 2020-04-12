@@ -13,9 +13,10 @@ class CategoryController extends Controller
         return view('news.categories')->with('categories', Categories::all());
     }
     public function show($slug){
+        $cat_id = Categories::query()->where('slug',$slug)->value('id');
         return view('news.category')->with([
-            'news'=> News::all(),
-            'category_name'=> Categories::where('slug',$slug)->value('name'),
+            'news'=> News::query()->where('category_id',$cat_id)->get(),
+            'category_name'=> Categories::query()->where('slug',$slug)->value('name'),
                 ]
         );
     }

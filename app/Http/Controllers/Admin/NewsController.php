@@ -20,7 +20,7 @@ class NewsController extends Controller
     public function edit(Request $request, News $news){
         return view('admin.create',[
             'news'=>$news,
-            'categories'=>[]
+            'categories'=>Categories::query()->select(['id','name'])->get()
         ]);
     }
 
@@ -32,6 +32,7 @@ class NewsController extends Controller
             if ($request->file('image')) {
                 $path = Storage::putFile('public/images', $request->file('image'));
                 $url = Storage::url($path);
+                $request['image'] = $url;
             }
             $news->fill($request->all())->save();
             return redirect()->route('admin.index')->with('success', 'Новость успешно изменена');
@@ -52,6 +53,7 @@ class NewsController extends Controller
             if($request->file('image')){
                 $path = Storage::putFile('public/images', $request->file('image'));
                 $url= Storage::url($path);
+                $request['image'] = $url;
             }
             $news->fill($request->all())->save();
             return redirect()->route('admin.index')->with('success','Новость успешно добавлена');
