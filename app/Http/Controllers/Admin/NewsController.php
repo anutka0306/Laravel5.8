@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\DB, Illuminate\Support\Facades\Storage;
+use PhpParser\Node\Expr\Cast\Object_;
 
 class NewsController extends Controller
 {
@@ -32,9 +33,9 @@ class NewsController extends Controller
             if ($request->file('image')) {
                 $path = Storage::putFile('public/images', $request->file('image'));
                 $url = Storage::url($path);
-                $request['image'] = $url;
+                $inputData['image'] = $url;
             }
-            $news->fill($request->all())->save();
+            $news->fill($inputData)->save();
             return redirect()->route('admin.index')->with('success', 'Новость успешно изменена');
         }
     }
@@ -47,15 +48,15 @@ class NewsController extends Controller
     public function create(Request $request)
     {
         $news = new News();
+        $inputData = $request->except('_token');
         if ($request->isMethod('post')) {
-            $inputData = $request->except(['_token']);
             $url = null;
             if($request->file('image')){
                 $path = Storage::putFile('public/images', $request->file('image'));
                 $url= Storage::url($path);
-                $request['image'] = $url;
+                $inputData['image'] = $url;
             }
-            $news->fill($request->all())->save();
+            $news->fill($inputData)->save();
             return redirect()->route('admin.index')->with('success','Новость успешно добавлена');
         }
         return view('admin.create',
