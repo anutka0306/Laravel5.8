@@ -19,6 +19,7 @@ class NewsController extends Controller
     }
 
     public function edit(Request $request, News $news){
+        //dd($news);
         return view('admin.create',[
             'news'=>$news,
             'categories'=>Categories::query()->select(['id','name'])->get()
