@@ -14,3 +14,7 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
+.thumbnail200{
+    width: 200px;
+    height: 200px;
+}

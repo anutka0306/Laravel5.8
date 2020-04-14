@@ -48,6 +48,12 @@
                             <div class="form-group">
                                 <label for="image">Картинка новости</label><br>
                                 <input type="file" name="image">
+                                @if($news->image)
+                                    <figure class="figure">
+                                    <img src="{{$news->image}}" alt="..." width="200" class="img-thumbnail thumbnail200">
+                                        <figcaption class="figure-caption">Текущее изображение</figcaption>
+                                    </figure>
+                                    @endif
                             </div>
 
 
