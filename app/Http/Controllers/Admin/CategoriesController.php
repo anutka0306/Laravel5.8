@@ -10,22 +10,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB, Illuminate\Support\Facades\Storage;
 use PhpParser\Node\Expr\Cast\Object_;
 
-class NewsController extends Controller
+class CategoriesController extends Controller
 {
-    public function index(){
-       $news = News::query()->paginate(6);
-       return view('admin.index',['news'=> $news]);
+    public function categories(){
+        $categories = Categories::query()->paginate(6);
+        return view('admin.categories',['categories'=>$categories]);
     }
 
-    public  function news(){
-        $news = News::query()->paginate(6);
-        return view('admin.news', ['news'=> $news]);
-    }
-
-    public function edit(Request $request, News $news){
-        return view('admin.create',[
-            'news'=>$news,
-            'categories'=>Categories::query()->select(['id','name'])->get()
+    public function edit(Request $request, Categories $categories){
+        return view('admin.create-category',[
+            'categories'=>$categories
         ]);
     }
 
@@ -44,21 +38,9 @@ class NewsController extends Controller
         }
     }
 
-    public function create(Request $request)
-    {
-        $news = new News();
-        $this->update($request, $news);
-        return view('admin.create',
-            [
-                'categories'=>Categories::all(),
-                'news'=> $news,
-            ]);
-    }
-
     public function destroy(News $news){
         $news->delete();
         return redirect()->route('admin.index')->with('success', 'Новость успешно удалена');
     }
-
-
 }
+
