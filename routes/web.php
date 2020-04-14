@@ -44,7 +44,8 @@ Route::group([
     Route::post('/update{news}','NewsController@update')->name('update');
     Route::get('/destroy{news}','NewsController@destroy')->name('destroy');
     Route::get('/categories','CategoriesController@categories')->name('categories');
-    Route::get('/categories/edit{categories}','CategoriesController@edit')->name('editCategoty');
+    Route::match(['get','post'],'/categories/create','CategoriesController@create')->name('createCategory');
+    Route::get('/categories/edit{categories}','CategoriesController@edit')->name('editCategory');
     Route::post('/categories/update{categories}','CategoriesController@update')->name('updateCategory');
     Route::get('/categories/destroy{categories}','CategoriesController@destroy')->name('destroyCategory');
 });

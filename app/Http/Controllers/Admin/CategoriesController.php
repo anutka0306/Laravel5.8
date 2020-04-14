@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Categories as Categories;
+use App\Categories;
 use App\News;
+use DemeterChain\C;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -23,7 +24,7 @@ class CategoriesController extends Controller
         ]);
     }
 
-    public function update(Request $request, News $news)
+    public function update(Request $request, Categories $categories)
     {
         if ($request->isMethod('post')) {
             $inputData = $request->except(['_token']);
@@ -33,14 +34,22 @@ class CategoriesController extends Controller
                 $url = Storage::url($path);
                 $inputData['image'] = $url;
             }
-            $news->fill($inputData)->save();
-            return redirect()->route('admin.index')->with('success', 'Новость успешно изменена');
+            $categories->fill($inputData)->save();
+            return redirect()->route('admin.categories')->with('success', 'Категория успешно изменена');
         }
     }
 
-    public function destroy(News $news){
-        $news->delete();
-        return redirect()->route('admin.index')->with('success', 'Новость успешно удалена');
+    public function create(Request $request, Categories $categories)
+    {
+        $this->update($request, $categories);
+        return view('admin.create-category',[
+            'categories'=>$categories
+        ]);
+    }
+
+    public function destroy(Categories $categories){
+        $categories->delete();
+        return redirect()->route('admin.destroyCategory')->with('success', 'Категория успешно удалена');
     }
 }
 

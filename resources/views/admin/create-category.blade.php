@@ -13,24 +13,24 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form method="POST" enctype="multipart/form-data" action="@if(!$categories->id){{ route('admin.create-category') }}@else{{ route('admin.updateCategory', $categories) }} @endif">
+                        <form method="POST" enctype="multipart/form-data" action="@if(!$categories->id){{ route('admin.createCategory') }}@else{{ route('admin.updateCategory', $categories) }} @endif">
                             @csrf
 
                             <div class="form-group">
                                 <label for="catTitle">Название категории</label>
-                                <input name="title" type="text" class="form-control" id="catTitle" value="{{ $categories->name ?? old('name') }}">
+                                <input name="name" type="text" class="form-control" id="catTitle" value="{{ $categories->name ?? old('name') }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="catSlug">Slug</label>
-                                <input name="title" type="text" class="form-control" id="catSlug" value="{{ $categories->slug ?? old('slug') }}">
+                                <input name="slug" type="text" class="form-control" id="catSlug" value="{{ $categories->slug ?? old('slug') }}">
                             </div>
 
 
 
                             <div class="form-group">
                                 <label for="catDescription">Описание категории</label>
-                                <textarea name="text" class="form-control" rows="5" id="catDescription">{{ $categories->description ?? old('description') }}</textarea>
+                                <textarea name="description" class="form-control" rows="5" id="catDescription">{{ $categories->description ?? old('description') }}</textarea>
                             </div>
 
                             <div class="form-group">
