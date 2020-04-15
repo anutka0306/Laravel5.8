@@ -18,6 +18,13 @@
 
                             <div class="form-group">
                                 <label for="newsTitle">Название новости</label>
+                                @if($errors->has('title'))
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->get('title') as $error)
+                                            {{$error}}
+                                            @endforeach
+                                    </div>
+                                @endif
                                 <input name="title" type="text" class="form-control" id="newsTitle" value="{{ $news->title ?? old('title') }}">
                             </div>
 
@@ -42,11 +49,25 @@
 
                             <div class="form-group">
                                 <label for="newsText">Текст новости</label>
+                                @if($errors->has('text'))
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->get('text') as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <textarea name="text" class="form-control" rows="5" id="newsText">{{ $news->text ?? old('text') }}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="image">Картинка новости</label><br>
+                                @if($errors->has('image'))
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->get('image') as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input type="file" name="image">
                                 @if($news->image)
                                     <figure class="figure">

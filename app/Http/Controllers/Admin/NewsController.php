@@ -39,6 +39,7 @@ class NewsController extends Controller
                 $url = Storage::url($path);
                 $inputData['image'] = $url;
             }
+            $this->validate($request, News::rules(),[],News::attributeNames());
             $news->fill($inputData)->save();
             return redirect()->route('admin.index')->with('success', 'Новость успешно изменена');
         }
@@ -57,7 +58,7 @@ class NewsController extends Controller
 
     public function destroy(News $news){
         $news->delete();
-        return redirect()->route('admin.index')->with('success', 'Новость успешно удалена');
+        return redirect()->route('admin.news')->with('success', 'Новость успешно удалена');
     }
 
 

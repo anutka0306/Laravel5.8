@@ -18,11 +18,25 @@
 
                             <div class="form-group">
                                 <label for="catTitle">Название категории</label>
+                                @if($errors->has('name'))
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->get('name') as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input name="name" type="text" class="form-control" id="catTitle" value="{{ $categories->name ?? old('name') }}">
                             </div>
 
                             <div class="form-group">
                                 <label for="catSlug">Slug</label>
+                                @if($errors->has('slug'))
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->get('slug') as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input name="slug" type="text" class="form-control" id="catSlug" value="{{ $categories->slug ?? old('slug') }}">
                             </div>
 
@@ -30,11 +44,25 @@
 
                             <div class="form-group">
                                 <label for="catDescription">Описание категории</label>
+                                @if($errors->has('description'))
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->get('description') as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <textarea name="description" class="form-control" rows="5" id="catDescription">{{ $categories->description ?? old('description') }}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="image">Картинка категории</label><br>
+                                @if($errors->has('image'))
+                                    <div class="alert alert-danger">
+                                        @foreach($errors->get('image') as $error)
+                                            {{$error}}
+                                        @endforeach
+                                    </div>
+                                @endif
                                 <input type="file" name="image">
                                 @if($categories->image)
                                     <figure class="figure">

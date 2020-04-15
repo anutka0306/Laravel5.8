@@ -34,6 +34,7 @@ class CategoriesController extends Controller
                 $url = Storage::url($path);
                 $inputData['image'] = $url;
             }
+            $this->validate($request, Categories::rules(), [], Categories::attributeNames());
             $categories->fill($inputData)->save();
             return redirect()->route('admin.categories')->with('success', 'Категория успешно изменена');
         }
@@ -49,7 +50,7 @@ class CategoriesController extends Controller
 
     public function destroy(Categories $categories){
         $categories->delete();
-        return redirect()->route('admin.destroyCategory')->with('success', 'Категория успешно удалена');
+        return redirect()->route('admin.categories')->with('success', 'Категория успешно удалена');
     }
 }
 
