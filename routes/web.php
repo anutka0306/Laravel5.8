@@ -37,12 +37,17 @@ Route::group([
     'namespace'=>'Admin',
     'as'=>'admin.'
 ], function (){
-    Route::get('/','NewsController@index')->name('index');
-    Route::get('/news','NewsController@news')->name('news');
-    Route::match(['get','post'],'/create','NewsController@create')->name('create');
-    Route::get('/edit{news}','NewsController@edit')->name('edit');
-    Route::post('/update{news}','NewsController@update')->name('update');
-    Route::get('/destroy{news}','NewsController@destroy')->name('destroy');
+    //Route::get('/','NewsController@index')->name('index');
+    //Route::get('/news','NewsController@news')->name('news');
+    //Route::match(['get','post'],'/create','NewsController@create')->name('create');
+   // Route::get('/edit{news}','NewsController@edit')->name('edit');
+   // Route::post('/update{news}','NewsController@update')->name('update');
+    //Route::get('/destroy{news}','NewsController@destroy')->name('destroy');
+    Route::resource('/news', 'NewsController')->except('show');
+    Route::get('/news/{some}', function(){
+        abort(404);
+    })->name('show');
+
     Route::get('/categories','CategoriesController@categories')->name('categories');
     Route::match(['get','post'],'/categories/create','CategoriesController@create')->name('createCategory');
     Route::get('/categories/edit{categories}','CategoriesController@edit')->name('editCategory');

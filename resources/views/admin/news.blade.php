@@ -18,8 +18,12 @@
                             @foreach ($news as $item)
                                 <div class="col-md-6">
                                     <h4>{{ $item->title }}</h4>
-                                    <a href="{{ route('admin.edit', $item) }}">  <button type="button" class="btn btn-success">Edit</button></a>
-                                    <a href="{{ route('admin.destroy', $item) }}">   <button type="button" class="btn btn-danger">Delete</button></a>
+                                    <a href="{{ route('admin.news.edit', $item) }}">  <button type="button" class="btn btn-success">Edit</button></a>
+                                    <form action="{{ route('admin.news.destroy', $item) }}" method="post">
+                                      <button type="submit" class="btn btn-danger">Delete</button>
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
                                     <hr/>
                                 </div>
                             @endforeach
