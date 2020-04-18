@@ -14,7 +14,7 @@ class NewsController extends Controller
 {
     public function index(){
        $news = News::query()->paginate(6);
-       return view('admin.index',['news'=> $news]);
+       return view('admin.news',['news'=> $news]);
     }
 
     public  function news(){
@@ -31,7 +31,6 @@ class NewsController extends Controller
 
     public function update(Request $request, News $news)
     {
-        if ($request->isMethod('post')) {
             $inputData = $request->except(['_token']);
             $url = null;
             if ($request->file('image')) {
@@ -41,24 +40,34 @@ class NewsController extends Controller
             }
             $this->validate($request, News::rules(),[],News::attributeNames());
             $news->fill($inputData)->save();
-            return redirect()->route('admin.index')->with('success', 'Новость успешно изменена');
-        }
+            return redirect()->route('admin.news.index')->with('success', 'Новость успешно изменена');
     }
 
-    public function create(Request $request)
+    public function store(Request $request)
     {
         $news = new News();
-        $this->update($request, $news);
-        return view('admin.create',
-            [
-                'categories'=>Categories::all(),
-                'news'=> $news,
-            ]);
+            $inputData = $request->except(['_token']);
+            $url = null;
+            if ($request->file('image')) {
+                $path = Storage::putFile('public/images', $request->file('image'));
+                $url = Storage::url($path);
+                $inputData['image'] = $url;
+            }
+            $this->validate($request, News::rules(),[],News::attributeNames());
+            $news->fill($inputData)->save();
+            return redirect()->route('admin.news.index')->with('success', 'Новость успешно создана');
+    }
+
+    public function create(News $news){
+        return view('admin.create',[
+            'categories'=>Categories::query()->select(['id','name'])->get(),
+            'news'=>$news
+        ]);
     }
 
     public function destroy(News $news){
         $news->delete();
-        return redirect()->route('admin.news')->with('success', 'Новость успешно удалена');
+        return redirect()->route('admin.news.index')->with('success', 'Новость успешно удалена');
     }
 
 

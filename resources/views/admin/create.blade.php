@@ -13,9 +13,9 @@
                 <div class="card">
                     <div class="card-body">
 
-                        <form method="POST" enctype="multipart/form-data" action="@if(!$news->id){{ route('admin.create') }}@else{{ route('admin.update', $news) }} @endif">
+                        <form method="POST" enctype="multipart/form-data" action="@if(!$news->id){{ route('admin.news.store') }}@else{{ route('admin.news.update', $news) }} @endif">
                             @csrf
-
+                            @if($news->id) @method('PATCH') @endif
                             <div class="form-group">
                                 <label for="newsTitle">Название новости</label>
                                 @if($errors->has('title'))
