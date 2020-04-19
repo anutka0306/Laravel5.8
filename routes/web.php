@@ -40,7 +40,6 @@ Route::group([
     'as'=>'admin.',
     'middleware'=>['auth','isAdmin']
 ], function (){
-    //Route::match(['get','post'],'/profile', 'ProfileController@update')->name('updateProfile');
     Route::match(['get','post'],'/users', 'RolesController@changeUserRole')->name('updateRole');
     Route::resource('/news', 'NewsController')->except('show');
     Route::get('/news/{some}', function(){
