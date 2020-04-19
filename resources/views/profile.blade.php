@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.main')
 
 @section('content')
     <div class="container">
@@ -8,7 +8,7 @@
                     <div class="card-header">Изменение данных профиля</div>
 
                     <div class="card-body">
-                        <form method="POST" action="{{ route('admin.updateProfile') }}">
+                        <form method="POST" action="{{ route('updateProfile') }}">
                             @csrf
 
                             <div class="form-group row">

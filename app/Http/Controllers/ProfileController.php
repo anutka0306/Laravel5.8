@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -28,30 +28,11 @@ class ProfileController extends Controller
             }else{
                $errors['password'][] = 'Неверно введен текущий пароль';
             }
-            return redirect()->route('admin.updateProfile')->withErrors($errors);
+            return redirect()->route('updateProfile')->withErrors($errors);
         }
-        return view('admin.profile',[
+        return view('profile',[
            'user'=>$user
         ]);
     }
 
-    public function changeUserRole(Request $request){
-        if($request->isMethod('post')){
-            $inputData = $request->except(['_token']);
-        if($inputData['isAdmin'] == 0){
-            $inputData['isAdmin'] = 1;
-        }else{
-            $inputData['isAdmin'] = 0;
-        }
-            DB::update("update users set isAdmin = {$inputData['isAdmin']} where id = {$inputData['id']}");
-        }
-
-        $current_admin = Auth::user();
-       $users= User::query()->paginate(6);
-       return view('admin.users',[
-           'users'=>$users,
-           'current_admin'=>$current_admin,
-       ]);
-
-    }
 }

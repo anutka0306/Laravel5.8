@@ -17,6 +17,8 @@ Route::get('/','HomeController@index')->name('Home');
 
 Route::get('/about', 'HomeController@about')->name('About');
 
+Route::match(['get','post'],'/profile', 'ProfileController@update')->name('updateProfile');
+
 Route::group([
     'prefix'=>'news',
     'as'=>'news.'
@@ -38,8 +40,8 @@ Route::group([
     'as'=>'admin.',
     'middleware'=>['auth','isAdmin']
 ], function (){
-    Route::match(['get','post'],'/profile', 'ProfileController@update')->name('updateProfile');
-    Route::match(['get','post'],'/users', 'ProfileController@changeUserRole')->name('updateRole');
+    //Route::match(['get','post'],'/profile', 'ProfileController@update')->name('updateProfile');
+    Route::match(['get','post'],'/users', 'RolesController@changeUserRole')->name('updateRole');
     Route::resource('/news', 'NewsController')->except('show');
     Route::get('/news/{some}', function(){
         abort(404);
