@@ -11,15 +11,18 @@ use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller
 {
-    public function changeUserRole(Request $request){
+    public function changeUserRole(Request $request, User $user){
+
             if($request->isMethod('post')){
                 $inputData = $request->except(['_token']);
-            if($inputData['isAdmin'] == 0){
-                $inputData['isAdmin'] = 1;
+                $user = User::query()->find($inputData['id']);
+            if($user->isAdmin == 0){
+                $user->isAdmin = 1;
             }else{
-                $inputData['isAdmin'] = 0;
+                $user->isAdmin = 0;
             }
-                DB::update("update users set isAdmin = {$inputData['isAdmin']} where id = {$inputData['id']}");
+            $user->save();
+
             }
 
             $current_admin = Auth::user();
