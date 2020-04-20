@@ -139,6 +139,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        \Orchestra\Parser\XmlServiceProvider::class,
         \App\Providers\MenuProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,
         Illuminate\Broadcasting\BroadcastServiceProvider::class,
@@ -191,7 +192,7 @@ return [
     */
 
     'aliases' => [
-
+        'XmlParser'=>Orchestra\Parser\Xml\Facade::class,
         'App' => Illuminate\Support\Facades\App::class,
         'Arr' => Illuminate\Support\Arr::class,
         'Artisan' => Illuminate\Support\Facades\Artisan::class,

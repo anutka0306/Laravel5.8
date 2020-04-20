@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class RolesController extends Controller
 {
-    public function changeUserRole(Request $request, User $user){
+    public function changeUserRole(Request $request){
 
             if($request->isMethod('post')){
                 $inputData = $request->except(['_token']);

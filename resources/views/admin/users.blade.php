@@ -15,18 +15,18 @@
                     <div class="card-body">
                         <h1>Все пользователи</h1>
                         <div class="row">
-                            @foreach ($users as $item)
+                            @foreach ($users as $user)
                                 <div class="col-md-6">
-                                    <h4>{{ $item->name }}</h4>
-                                    <small>{{ $item->email }}</small>
-                                    @if($item->id == $current_admin->id)
+                                    <h4>{{ $user->name }}</h4>
+                                    <small>{{ $user->email }}</small>
+                                    @if($user->id == $current_admin->id)
                                         Это ваш аккаунт
                                     @else
                                         <form action="{{ route('admin.updateRole') }}" method="post">
-                                            <input type="hidden" name="id" value="{{$item->id}}">
-                                            <input type="hidden" name="isAdmin" value="{{$item->isAdmin}}">
+                                            <input type="hidden" name="id" value="{{$user->id}}">
+                                            <input type="hidden" name="isAdmin" value="{{$user->isAdmin}}">
                                             @csrf
-                                        @if($item->isAdmin == 0)
+                                        @if($user->isAdmin == 0)
                                       <button type="submit" class="btn btn-success">Надначить админом</button>
                                         @else
                                          <button type="submit" class="btn btn-danger">Разжаловать</button>
