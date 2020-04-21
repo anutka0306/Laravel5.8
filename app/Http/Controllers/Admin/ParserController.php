@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Categories;
+use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Orchestra\Parser\Xml\Facade as XmlParser;
@@ -26,17 +27,25 @@ class ParserController extends Controller
             [
                 'news'=>['uses'=>'channel.item[title,link,guid,description,pubDate]']
             ]);
-       $news = array_map(function ($new){
-           return array(
-           'title'=>$new['title'],
-           'text'=>$new['description'],
-           'created_at'=>$new['pubDate']
-           );
-       }, $data_news['news']);
 
-       $is_exists = Categories::query()->where('slug',$data_category['slug'])->value('id');
-       dd($is_exists);
+       $is_exists = $categories::query()->where('slug',$data_category['slug'])->value('id');
+       if(!$is_exists){
+       $categories->fill($data_category)->save();
+       }
+       $categoryId = $categories::query()->where('slug',$data_category['slug'])->value('id');
+        $news = array_map(function ($new) use ($categoryId){
+            return array(
+                'title'=>$new['title'],
+                'text'=>$new['description'],
+                //'created_at'=>$new['pubDate'],
+                'category_id'=>$categoryId
+            );
+        }, $data_news['news']);
+       foreach ($news as $new){
+           News::query()->insert($new);
+       }
 
-        //dd($news);
+
+
     }
 }
