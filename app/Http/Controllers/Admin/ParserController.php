@@ -42,10 +42,10 @@ class ParserController extends Controller
             );
         }, $data_news['news']);
        foreach ($news as $new){
-           News::query()->insert($new);
+           if(!News::query()->where('title',$new['title'])->value('title')) {
+               News::query()->insert($new);
+           }
        }
-
-
-
+       return redirect()->route('admin.news.index')->with('success', 'Новости добавлены');
     }
 }
