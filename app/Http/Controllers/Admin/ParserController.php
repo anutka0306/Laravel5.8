@@ -9,15 +9,29 @@ use Orchestra\Parser\Xml\Facade as XmlParser;
 class ParserController extends Controller
 {
     public function index(){
-        $xml = XmlParser::Load('https://news.yandex.ru/army.rss');
-        $data = $xml->parse(
+        $resource = 'https://news.yandex.ru/sport.rss';
+        preg_match('/(\/[a-z]+\.rss)/',$resource,$found);
+        $slug = substr($found[0],1,-4);
+        $xml = XmlParser::Load($resource);
+
+        $data_category = $xml->parse(
             [
-                'title'=>['uses'=>'channel.title'],
-                'link'=>['uses'=>'channel.link'],
+                'name'=>['uses'=>'channel.title'],
+                'slug'=>$slug,
                 'description'=>['uses'=>'channel.description'],
-                'image'=>['uses'=>'channel.image.url'],
+                'image'=>['uses'=>'channel.image.url']
+            ]);
+        $data_news = $xml->parse(
+            [
                 'news'=>['uses'=>'channel.item[title,link,guid,description,pubDate]']
             ]);
-        dd($data);
+       $news = array_map(function ($new){
+           return array(
+           'title'=>$new['title'],
+           'text'=>$new['description'],
+           'created_at'=>$new['pubDate']
+           );
+       }, $data_news['news']);
+        dd($news);
     }
 }
