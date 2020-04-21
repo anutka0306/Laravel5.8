@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Categories;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Orchestra\Parser\Xml\Facade as XmlParser;
 
 class ParserController extends Controller
 {
-    public function index(){
+    public function index(Categories $categories){
         $resource = 'https://news.yandex.ru/sport.rss';
         preg_match('/(\/[a-z]+\.rss)/',$resource,$found);
         $slug = substr($found[0],1,-4);
@@ -32,6 +33,10 @@ class ParserController extends Controller
            'created_at'=>$new['pubDate']
            );
        }, $data_news['news']);
-        dd($news);
+
+       $is_exists = Categories::query()->where('slug',$data_category['slug'])->value('id');
+       dd($is_exists);
+
+        //dd($news);
     }
 }
