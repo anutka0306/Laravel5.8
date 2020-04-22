@@ -64,6 +64,7 @@
                                 @endif
                             </div>
                         </div>
+                        <a class="nav-link" href="{{ route('vkLogin') }}">VK</a>
                     </form>
                 </div>
             </div>

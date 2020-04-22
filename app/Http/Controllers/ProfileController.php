@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers;
 
 use App\User;
 use Illuminate\Http\Request;
@@ -15,6 +15,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $errors = [];
         if($request->isMethod('post')){
+        $this->validate($request, $this->validateRules());
             if(Hash::check($request->post('password'), $user->password)){
                 $user->fill(
                     [
@@ -28,30 +29,20 @@ class ProfileController extends Controller
             }else{
                $errors['password'][] = 'Неверно введен текущий пароль';
             }
-            return redirect()->route('admin.updateProfile')->withErrors($errors);
+            return redirect()->route('updateProfile')->withErrors($errors);
         }
-        return view('admin.profile',[
+        return view('profile',[
            'user'=>$user
         ]);
     }
 
-    public function changeUserRole(Request $request){
-        if($request->isMethod('post')){
-            $inputData = $request->except(['_token']);
-        if($inputData['isAdmin'] == 0){
-            $inputData['isAdmin'] = 1;
-        }else{
-            $inputData['isAdmin'] = 0;
-        }
-            DB::update("update users set isAdmin = {$inputData['isAdmin']} where id = {$inputData['id']}");
-        }
-
-        $current_admin = Auth::user();
-       $users= User::query()->paginate(6);
-       return view('admin.users',[
-           'users'=>$users,
-           'current_admin'=>$current_admin,
-       ]);
-
+    protected function validateRules(){
+        return [
+        'name'=> 'required|string|max:10',
+        'email'=>'required|email|unique:users,email,'.Auth::id(),
+        'password'=>'required',
+        'new-password'=>'required|string|min:3'
+        ];
     }
+
 }

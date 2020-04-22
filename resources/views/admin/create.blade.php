@@ -25,7 +25,7 @@
                                             @endforeach
                                     </div>
                                 @endif
-                                <input name="title" type="text" class="form-control" id="newsTitle" value="{{ $news->title ?? old('title') }}">
+                                <input name="title" type="text" class="form-control" id="newsTitle" value="{{ old('title') ?? $news->title }}">
                             </div>
 
 
@@ -33,7 +33,7 @@
                                 <label for="newsCategory">Категория новости</label>
                                 <select name="category_id" class="form-control" id="newsCategory">
                                     @forelse($categories as $item)
-                                        <option @if($news->category_id && $news->category_id==$item->id)
+                                        <option @if($item->id == old('category_id') ?? $news->category_id==$item->id)
                                                 @if ($item->id == old('id')) selected
                                                 @endif
                                                 selected @endif
@@ -56,7 +56,7 @@
                                         @endforeach
                                     </div>
                                 @endif
-                                <textarea name="text" class="form-control" rows="5" id="newsText">{{ $news->text ?? old('text') }}</textarea>
+                                <textarea name="text" class="form-control" rows="5" id="newsText">{{  old('text') ?? $news->text }}</textarea>
                             </div>
 
                             <div class="form-group">
