@@ -139,6 +139,7 @@ return [
         /*
          * Laravel Framework Service Providers...
          */
+        \SocialiteProviders\Manager\ServiceProvider::class,
         \Orchestra\Parser\XmlServiceProvider::class,
         \App\Providers\MenuProvider::class,
         Illuminate\Auth\AuthServiceProvider::class,

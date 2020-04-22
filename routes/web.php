@@ -55,7 +55,8 @@ Route::group([
 });
 
 
-
+Route::get('vk/auth', 'LoginController@loginVK')->name('vkLogin');
+Route::get('vk/auth/response', 'LoginController@responseVK')->name('vkResponse');
 
 Auth::routes();
 
