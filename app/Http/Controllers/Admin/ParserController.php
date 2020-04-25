@@ -26,7 +26,7 @@ class ParserController extends Controller
             'https://news.yandex.ru/internet.rss',
             'https://news.yandex.ru/cyber_sport.rss',
             'https://news.yandex.ru/movies.rss',
-            'https://news.yandex.ru/cosmos.rss',
+            'https://news.yandex.ru/cosmos.rss'
 
         ];
         foreach ($rssLink as $link) {
