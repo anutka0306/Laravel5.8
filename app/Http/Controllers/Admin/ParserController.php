@@ -3,49 +3,34 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Categories;
+use App\Jobs\NewsParsing;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Orchestra\Parser\Xml\Facade as XmlParser;
+use App\Services\XMLParserService;
 
 class ParserController extends Controller
 {
-    public function index(Categories $categories){
-        $resource = 'https://news.yandex.ru/sport.rss';
-        preg_match('/(\/[a-z]+\.rss)/',$resource,$found);
-        $slug = substr($found[0],1,-4);
-        $xml = XmlParser::Load($resource);
+    public function index(XMLParserService $parserService){
+        $rssLink = [
+            'https://news.yandex.ru/auto.rss',
+            'https://news.yandex.ru/auto_racing.rss',
+           'https://news.yandex.ru/army.rss',
+           'https://news.yandex.ru/gadgets.rss',
+           'https://news.yandex.ru/index.rss',
+            'https://news.yandex.ru/martial_arts.rss',
+            'https://news.yandex.ru/communal.rss',
+            'https://news.yandex.ru/health.rss',
+            'https://news.yandex.ru/games.rss',
+            'https://news.yandex.ru/internet.rss',
+            'https://news.yandex.ru/cyber_sport.rss',
+            'https://news.yandex.ru/movies.rss',
+            'https://news.yandex.ru/cosmos.rss',
 
-        $data_category = $xml->parse(
-            [
-                'name'=>['uses'=>'channel.title'],
-                'slug'=>$slug,
-                'description'=>['uses'=>'channel.description'],
-                'image'=>['uses'=>'channel.image.url']
-            ]);
-        $data_news = $xml->parse(
-            [
-                'news'=>['uses'=>'channel.item[title,link,guid,description,pubDate]']
-            ]);
-
-       $is_exists = $categories::query()->where('slug',$data_category['slug'])->value('id');
-       if(!$is_exists){
-       $categories->fill($data_category)->save();
-       }
-       $categoryId = $categories::query()->where('slug',$data_category['slug'])->value('id');
-        $news = array_map(function ($new) use ($categoryId){
-            return array(
-                'title'=>$new['title'],
-                'text'=>$new['description'],
-                //'created_at'=>$new['pubDate'],
-                'category_id'=>$categoryId
-            );
-        }, $data_news['news']);
-       foreach ($news as $new){
-           if(!News::query()->where('title',$new['title'])->value('title')) {
-               News::query()->insert($new);
-           }
-       }
-       return redirect()->route('admin.news.index')->with('success', 'Новости добавлены');
+        ];
+        foreach ($rssLink as $link) {
+            NewsParsing::dispatch($link);
+        }
     }
 }
