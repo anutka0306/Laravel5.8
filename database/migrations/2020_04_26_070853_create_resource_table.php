@@ -13,7 +13,7 @@ class CreateResourceTable extends Migration
      */
     public function up()
     {
-        Schema::create('resource', function (Blueprint $table) {
+        Schema::create('resources', function (Blueprint $table) {
             $table->bigIncrements('id')->unsigned();
             $table->string('link');
             $table->timestamp('created_at')->useCurrent();
@@ -28,6 +28,6 @@ class CreateResourceTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('resource');
+        Schema::dropIfExists('resources');
     }
 }
