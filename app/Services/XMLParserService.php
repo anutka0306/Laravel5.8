@@ -6,6 +6,7 @@ namespace App\Services;
 use App\News;
 use App\Categories;
 use Orchestra\Parser\Xml\Facade as XmlParser;
+use Illuminate\Support\Facades\Storage;
 
 class XMLParserService
 {
@@ -27,6 +28,8 @@ public function saveNews($link){
         [
             'news'=>['uses'=>'channel.item[title,link,guid,description,pubDate]']
         ]);
+
+    Storage::disk('publicLogs')->append('log.txt', date('c').' '.$link);
 
     $is_exists = $categories::query()->where('slug',$data_category['slug'])->value('id');
     if(!$is_exists){
