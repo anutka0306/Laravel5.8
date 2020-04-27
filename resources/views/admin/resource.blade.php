@@ -22,11 +22,7 @@
                                 <div class="col-md-6">
                                     <a href="{{ $item->link }}"> <h5>{{ $item->link }}</h5></a>
 
-                                    <form style="display:inline" action="{{ route('admin.news.destroy', $item) }}" method="post">
-                                        <button type="submit" class="btn btn-danger">Delete</button>
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
+                                    <a href="{{ route('admin.destroyRecourse', $item) }}">   <button type="button" class="btn btn-danger">Delete</button></a>
                                     <hr/>
                                 </div>
                             @endforeach

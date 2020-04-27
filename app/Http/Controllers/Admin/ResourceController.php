@@ -22,4 +22,9 @@ class ResourceController extends Controller
             return view('admin.create-recourse');
 
     }
+    public function destroy($item){
+        Resource::query()->delete($item);
+        return redirect()->route('admin.resource')->with('success', 'Ресурс успешно удален');
+
+    }
 }
