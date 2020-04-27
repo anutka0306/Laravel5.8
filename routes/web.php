@@ -41,7 +41,10 @@ Route::group([
     'middleware'=>['auth','isAdmin']
 ], function (){
     Route::get('/parser','ParserController@index')->name('parser');
+
     Route::get('/resource','ResourceController@index')->name('resource');
+    Route::match(['get','post'], '/recourse/create','ResourceController@create')->name('createRecourse');
+
     Route::match(['get','post'],'/users', 'RolesController@changeUserRole')->name('updateRole');
     Route::resource('/news', 'NewsController')->except('show');
     Route::get('/news/{some}', function(){
