@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h1>{{ $news->title }}</h1>
                         <div class="page__main-image" style="background-image:url({{ $news->image??asset('storage/default.jpg') }})" alt="New Image"></div>
-                        <p>{{ $news->text }}</p>
+                        <p>{!! $news->text !!}</p>
                     </div>
                 </div>
             </div>

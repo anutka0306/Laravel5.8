@@ -21,7 +21,7 @@
                                         <div class="catalog-item__image" style="background-image:url({{ $item->image??asset('storage/default.jpg') }})" alt="New Image"></div>
                                     </a>
                                     <div class="new-item__description">
-                                        {{ $item->text }}
+                                        {!! $item->text !!}
                                     </div>
                                 </div>
                             @endforeach
