@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Categories;
 use App\Jobs\NewsParsing;
+use App\Resource;
 use App\News;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -13,7 +14,7 @@ use App\Services\XMLParserService;
 class ParserController extends Controller
 {
     public function index(XMLParserService $parserService){
-        $rssLink = [
+       /* $rssLink = [
             'https://news.yandex.ru/auto.rss',
             'https://news.yandex.ru/auto_racing.rss',
            'https://news.yandex.ru/army.rss',
@@ -28,8 +29,13 @@ class ParserController extends Controller
             'https://news.yandex.ru/movies.rss',
             'https://news.yandex.ru/cosmos.rss'
 
-        ];
-        foreach ($rssLink as $link) {
+        ];*/
+        $rssLink = Resource::query()->get('link');
+        $links = [];
+        foreach($rssLink as $link){
+           $links[] = $link->link;
+        }
+        foreach ($links as $link) {
             NewsParsing::dispatch($link);
         }
         return redirect()->route('admin.news.index')->with('success', 'Новости успешно запарселись');
